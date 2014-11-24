@@ -1,0 +1,19 @@
+name: HushNow
+main: com.wundero.HushNow.Hush
+version: 1.1.4
+
+commands:
+  hush:
+    description: Mute a player
+    permission: hushnow.hush
+    usage: usage = /hush <[-e] player|all> [time]
+permissions:
+  hushnow.hush:
+    default: false
+  hushnow.exempt:
+    default: false
+  hushnow.*:
+    default: op
+    children:
+      hushnow.hush: true
+      hushnow.exempt: true
