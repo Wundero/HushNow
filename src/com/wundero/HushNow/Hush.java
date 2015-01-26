@@ -85,8 +85,8 @@ public class Hush extends JavaPlugin implements Listener {
 								return true;
 							}
 							toggleAll(sender, null);
-							Timer timer = new Timer(this, null, sender, true, id);
-							timer.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, timer, 20l, 20l));
+							Timer timer = new Timer(this, null, sender, true);
+							timer.setID(Bukkit.getScheduler().scheduleSyncDelayedTask(this, timer, (long) id));
 							
 							if(args.length>2)
 							{
@@ -170,8 +170,8 @@ public class Hush extends JavaPlugin implements Listener {
 									e.printStackTrace();
 									return true;
 								}
-								Timer timer = new Timer(this, null, sender, true, id);
-								timer.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, timer, 20l, 20l));
+								Timer timer = new Timer(this, null, sender, true);
+								timer.setID(Bukkit.getScheduler().scheduleSyncDelayedTask(this, timer, (long) id));
 								toggleAll(sender, Bukkit.getPlayer(exPlayer));
 								if(args.length>3)
 								{
@@ -257,8 +257,8 @@ public class Hush extends JavaPlugin implements Listener {
 											return true;
 										}
 										toggleHush(p, sender);
-										Timer timer = new Timer(this, p, sender, true, id);
-										timer.setID(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, timer, 20l, 20l));
+										Timer timer = new Timer(this, p, sender, true);
+										timer.setID(Bukkit.getScheduler().scheduleSyncDelayedTask(this, timer, (long) id));
 										if(args.length>2)
 										{
 											String s="";
@@ -444,7 +444,7 @@ public class Hush extends JavaPlugin implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerPreprocessCommand(PlayerCommandPreprocessEvent e)//TODO blacklist/whitelist of commands
+	public void onPlayerPreprocessCommand(PlayerCommandPreprocessEvent e)
 	{
 		String cmd = e.getMessage();
 		if(cmd.charAt(0)=='/') cmd = cmd.substring(1);
