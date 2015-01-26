@@ -2,9 +2,8 @@ package com.wundero.HushNow;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class Timer extends BukkitRunnable {
+public class Timer implements Runnable {
 
 	private Hush hush;
 	private Player player;
