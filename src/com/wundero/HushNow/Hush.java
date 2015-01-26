@@ -2,6 +2,7 @@ package com.wundero.HushNow;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,12 +22,24 @@ public class Hush extends JavaPlugin implements Listener {
 	private int toggled;
 	private String exPlayer;
 	private Map<String, Integer> ptoggled = new HashMap<String, Integer>();
+	
+	private ArrayList<String> whitelist;
  	
 	// command - /hush <[-e] player|all> [time]
 	
 	@Override
 	public void onEnable()
 	{
+		if(!getConfig().contains("commands.whitelist"))
+		{
+			ArrayList<String> wl = new ArrayList<String>();
+			wl.add("help");
+			wl.add("list");
+			getConfig().set("commands.whitelist", wl);
+		}
+		
+		whitelist = (ArrayList<String>) getConfig().getStringList("commands.whitelist");
+		
 		getServer().getPluginManager().registerEvents(this, this);
 		ptoggled.clear();
 		toggled = 1;
@@ -433,6 +446,11 @@ public class Hush extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onPlayerPreprocessCommand(PlayerCommandPreprocessEvent e)//TODO blacklist/whitelist of commands
 	{
+		String cmd = e.getMessage();
+		if(cmd.charAt(0)=='/') cmd = cmd.substring(1);
+		if(whitelist.contains(cmd))
+			return;
+		
 		if(ptoggled.get(e.getPlayer().getName())<0&&!(e.getPlayer().hasPermission("hushnow.exempt")))
 		{
 			e.setCancelled(true);
