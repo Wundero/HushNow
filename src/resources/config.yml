@@ -1,0 +1,7 @@
+commands:
+  whitelist:
+  - help
+  - list
+  blacklist:
+  - msg
+  - mail
